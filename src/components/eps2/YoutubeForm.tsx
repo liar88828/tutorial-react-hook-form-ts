@@ -1,4 +1,4 @@
-import './YoutubeForm.css'
+import '../../style/YoutubeForm.css'
 export const YoutubeForm = () => {
     return (
         <div>
