@@ -20,35 +20,26 @@ type FromValues = {
     dob: Date
 }
 
+const defaultFromValues = {
+    username: 'Jane Barnes',
+    email: 'gat@bi.kw',
+    channel: 'http://hewoseeno.py/dog',
+    social: {
+        twitter: 'tonight',
+        facebook: 'climate ',
+    },
+    phoneNumber: ['+64', '+64'],
+    phNumbers: [
+        { number: '' }
+    ],
+    age: 0,
+    dob: new Date(),
+}
 export const YoutubeForm = () => {
     const form = useForm<FromValues>({
-        defaultValues: {
-            username: 'Jane Barnes',
-            email: 'gat@bi.kw',
-            channel: 'http://hewoseeno.py/dog',
-            social: {
-                twitter: 'tonight',
-                facebook: 'climate ',
-            },
-            phoneNumber: ['+64', '+64'],
-            phNumbers: [
-                { number: '' }
-            ],
-            age: 0,
-            dob: new Date(),
-        }
-        // defaultValues: async () => {
-        //     const response = await fetch('https://jsonplaceholder.typicode.com/users/1')
-        //     const data = await response.json()
-        //     return {
-        //         username: data.username,
-        //         email: data.email,
-        //         channel: data.website
-        //     }
-        // }
+        defaultValues: defaultFromValues
     })
     const { register, control, handleSubmit, formState, getValues, setValue
-        //watch,
     } = form
     const { fields, append, remove } = useFieldArray({
         name: 'phNumbers',
@@ -70,18 +61,6 @@ export const YoutubeForm = () => {
 
     const onSubmit = (data: FromValues) => console.log('Form Submitted', data)
 
-    // specific value
-    // const watchUsername = watch(['username','age'])
-
-    // all value
-    // const watchForm = watch()
-
-    // useEffect(() => {
-    //     const subscription = watch(value => console.log(value))
-
-    //     return () => subscription.unsubscribe()
-    // }, [watch])
-
     const handleGetValues = () => {
         console.log(
             'get Values',
@@ -90,6 +69,7 @@ export const YoutubeForm = () => {
             //getValues()       // all values
         );
     }
+
     const handleSetValues = () => {
         setValue('username', '', {
             shouldValidate: true,
@@ -100,16 +80,9 @@ export const YoutubeForm = () => {
 
     renderCount++;
 
-    return (
-        <div>
-            <h1>Youtube ({renderCount / 2})</h1>
-            {/* <h2>Watch value of : {watchUsername}</h2> */}
-
-            {/* <h2>Watch value of : {JSON.stringify(watchForm)}</h2> */}
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                noValidate
-            >
+    const Input = () => {
+        return (
+            <>
                 <div className="form-control">
                     <label htmlFor="username"> Username</label>
                     <input type="text"
@@ -200,7 +173,6 @@ export const YoutubeForm = () => {
                     <p className='error'> {errors.dob?.message} </p>
                 </div>
 
-
                 <div className="form-control">
                     <label htmlFor="twitter">Twitter</label>
                     <input type="text" id='twitter' {...register('social.twitter',)} />
@@ -227,7 +199,7 @@ export const YoutubeForm = () => {
                         {...register('phoneNumber.1',)} />
                 </div>
 
-                <div >
+                <div>
                     <label htmlFor="phPhone">List of phone number</label>
                     <div>{fields.map((field, index) => (
                         <div
@@ -259,6 +231,23 @@ export const YoutubeForm = () => {
 
                     </div>
                 </div>
+
+            </>
+        )
+    }
+
+    return (
+        <div>
+            <h1>Youtube ({renderCount / 2})</h1>
+            <form
+                onSubmit={
+                    handleSubmit(onSubmit)
+                }
+                noValidate
+            >
+
+                <Input />
+
                 <button>Submit</button>
 
                 <button
