@@ -1,11 +1,13 @@
-import { Zod } from './components/eps30/zod'
+import MuiForm from './components/eps31/MuiForm'
 import './style/App.css'
+
 
 function App() {
 
   return (
     <>
-      <Zod/>
+
+      <MuiForm />
     </>
   )
 }
