@@ -1,11 +1,11 @@
-import { YoutubeForm } from './components/eps29/YoutubeForm'
+import { Zod } from './components/eps30/zod'
 import './style/App.css'
 
 function App() {
 
   return (
     <>
-      <YoutubeForm />
+      <Zod/>
     </>
   )
 }
